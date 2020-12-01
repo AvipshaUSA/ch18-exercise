@@ -1,0 +1,48 @@
+18.4.3.1. Inner Join
+Use an inner join on seeds and garden_bed to see which plants we have seeds for and are in our garden bed.
+
+select * from garden_bed inner join seeds on seeds.plant_id = garden_bed.plant_id;
+ 
+18.4.3.2. Left Join
+Write a query that joins seeds and garden_bed with a left join to see all of the seeds we have and any matching plants in the garden bed.
+
+select * from garden_bed left join seeds on seeds.plant_id = garden_bed.plant_id;
+ 
+or
+select seed_id, expiration_date, quantity,garden_bed.plant_id, reorder from garden_bed left join seeds on seeds.plant_id = garden_bed.plant_id;
+
+ 
+18.4.3.3. Right Join
+Write a query that joins seeds and garden_bed with a right join to see all the plants in the garden bed and any matching seeds we have.
+
+select plant_name,plant.plant_id, zone, season from garden_bed right join plant on plant.plant_id = garden_bed.plant_id;
+
+ 
+18.4.3.4. Full Join
+Write a query that joins seeds and garden_bed with a full join.
+
+select * from garden_bed left join seeds on seeds.plant_id = garden_bed.plant_id
+union
+select * from garden_bed right join seeds on seeds.plant_id = garden_bed.plant_id;
+ 
+
+Or 
+
+SELECT *
+FROM  garden_bed 
+FULL JOIN seeds
+ON seeds.plant_id = full.plant_id ;
+(full join will work . This is not a bug. there is no "FULL JOIN" in MariaDB, so when you specify a full join b, "full" is parsed as an alias for the table "a". That's why a full join b on a.aa = bb fails, but a full join b on full.aa = bb should work.)
+
+ 
+
+
+18.4.4. Sub-Queries and Complex Queries
+
+SELECT * 
+  FROM plant 
+ WHERE plant_id IN (SELECT plant_id 
+                FROM seeds);
+
+ 
+
